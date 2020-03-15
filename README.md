@@ -1,4 +1,4 @@
-# apache
+# apache 환경 설정
 <pre>
 ├─httpd
 │  ├─conf
