@@ -1,0 +1,36 @@
+#1. mobile first setting
+<VirtualHost *:80>
+  ServerAdmin webmaster@hana.net
+  ServerName  ez1.m.hana.net
+  ServerAlias *.m.hana.net
+
+  DocumentRoot "/etc/httpd/html/mobile"
+  DirectoryIndex  index.html
+  <Directory "/etc/httpd/html/mobile">
+    AllowOverride none
+    Require all granted
+  </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+  ServerName m.ez1.hana.net
+  ServerAlias m.*.hana.net
+
+  RewriteCond  %{HTTP_HOST}     ^m\.[^.]+\.hana\.net$ [NC]
+  RewriteRule  ^(.+)            %{HTTP_HOST}$1 [C]
+  RewriteRule ^m\.([^.]+)\.hana\.net(.*)  http://$1.m.hana.net$2  [L]
+</VirtualHost>
+
+#2. web second setting
+<VirtualHost *:80>
+  ServerAdmin webmaster@hana.net
+  ServerName  ez1.hana.net
+  ServerAlias *.hana.net
+
+  DocumentRoot "/etc/httpd/html/web"
+  DirectoryIndex  index.html
+  <Directory "/etc/httpd/html/web">
+    AllowOverride none
+    Require all granted
+  </Directory>
+</VirtualHost>
